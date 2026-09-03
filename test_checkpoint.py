@@ -1,14 +1,11 @@
-from pathlib import Path
 import torch
 
-path = Path(
-    r"D:\project\pod-fcdnn-gui-main\checkpoints\cavity_checkpoint.pt"
-)
+checkpoints = [
+    "cavity_checkpoint.pt",
+    "cylinder_checkpoint.pt",
+    "naca_checkpoint.pt"
+]
 
-print("Exists:", path.exists())
-print("Path:", path)
-
-ckpt = torch.load(path, map_location="cpu")
-
-print("Checkpoint loaded successfully")
-print("Keys:", ckpt.keys())
+for filename in checkpoints:
+    data = torch.load(filename, map_location="cpu", weights_only=False)
+    print(f"Loaded {filename}: {data['pod_r']} modes, {data['pod_N']} points")
